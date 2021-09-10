@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const user_dto_1 = require("../dto/user.dto");
+const user_update_dto_1 = require("../dto/user.update.dto");
 const user_category_1 = require("../utils/user.category");
 const user_interest_1 = require("../utils/user.interest");
 const app_service_1 = require("../service/app.service");
@@ -30,6 +32,15 @@ let AppController = class AppController {
     }
     getAllCatgegories() {
         return user_category_1.userCategories;
+    }
+    addUser(userDto) {
+        return this.appService.addUser(userDto);
+    }
+    editUser(id, updateUserDto) {
+        return this.appService.editUser(id, updateUserDto);
+    }
+    deleteUser(id) {
+        return this.appService.deleteUser(id);
     }
 };
 __decorate([
@@ -56,6 +67,24 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getAllCatgegories", null);
+__decorate([
+    (0, common_1.Post)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_dto_1.UserDto]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "addUser", null);
+__decorate([
+    (0, common_1.Patch)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, user_update_dto_1.updateUserDto]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "editUser", null);
+__decorate([
+    (0, common_1.Delete)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "deleteUser", null);
 AppController = __decorate([
     (0, swagger_1.ApiTags)('/'),
     (0, common_1.Controller)(),

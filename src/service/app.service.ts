@@ -5,6 +5,7 @@ import { internet, name } from 'faker';
 import { UserDto } from 'src/dto/user.dto';
 import { userCategories } from 'src/utils/user.category';
 import { userInterests } from 'src/utils/user.interest';
+import { updateUserDto } from 'src/dto/user.update.dto';
 
 @Injectable()
 export class AppService {
@@ -51,5 +52,27 @@ export class AppService {
 
     // using prisma transaction and commiting them
     return this.prismaService.$transaction(users);
+  }
+
+  //  add user to db
+  addUser(userDto: UserDto) {
+    return this.prismaService.user.create({
+      data: userDto,
+    });
+  }
+
+  // edit user
+  editUser(id: string, updateUserDto: updateUserDto) {
+    return this.prismaService.user.update({
+      data: updateUserDto,
+      where: { id },
+    });
+  }
+
+  // delete user
+  deleteUser(id: string) {
+    return this.prismaService.user.delete({
+      where: { id },
+    });
   }
 }

@@ -1,5 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { UserDto } from 'src/dto/user.dto';
+import { updateUserDto } from 'src/dto/user.update.dto';
 import { userCategories } from 'src/utils/user.category';
 import { userInterests } from 'src/utils/user.interest';
 import { AppService } from '../service/app.service';
@@ -31,5 +33,22 @@ export class AppController {
   @Get('/categories')
   getAllCatgegories() {
     return userCategories;
+  }
+
+  // add a user
+  @Post('')
+  addUser(userDto: UserDto) {
+    return this.appService.addUser(userDto);
+  }
+
+  // editUser()
+  @Patch('')
+  editUser(id: string, updateUserDto: updateUserDto) {
+    return this.appService.editUser(id, updateUserDto);
+  }
+
+  @Delete('')
+  deleteUser(id: string) {
+    return this.appService.deleteUser(id);
   }
 }

@@ -16,6 +16,7 @@ const faker_1 = require("faker");
 const user_dto_1 = require("../dto/user.dto");
 const user_category_1 = require("../utils/user.category");
 const user_interest_1 = require("../utils/user.interest");
+const user_update_dto_1 = require("../dto/user.update.dto");
 let AppService = class AppService {
     constructor(prismaService) {
         this.prismaService = prismaService;
@@ -38,6 +39,22 @@ let AppService = class AppService {
             users.push(this.prismaService.user.create({ data: user }));
         }
         return this.prismaService.$transaction(users);
+    }
+    addUser(userDto) {
+        return this.prismaService.user.create({
+            data: userDto,
+        });
+    }
+    editUser(id, updateUserDto) {
+        return this.prismaService.user.update({
+            data: updateUserDto,
+            where: { id },
+        });
+    }
+    deleteUser(id) {
+        return this.prismaService.user.delete({
+            where: { id },
+        });
     }
 };
 AppService = __decorate([
